@@ -1,0 +1,80 @@
+version: "3"
+services:
+  #NODE Services:
+  chat:
+    image: node:${NODE_V}
+    container_name: chat
+    restart: always
+    tty: true
+    working_dir: /app
+    volumes:
+      - ./chat:/app
+    ports:
+      - ${CHAT_PORT}:3000
+      - ${SOCKET_PORT}:2000
+    networks:
+      - lan
+
+  databaseAPI:
+    image: node:${NODE_V}
+    container_name: databaseAPI
+    restart: always
+    tty: true
+    working_dir: /app
+    volumes:
+      - ./database:/app
+    ports:
+      - ${DB_PORT}:4000
+    networks:
+      - lan
+
+  gptAPI:
+    image: node:${NODE_V}
+    container_name: gptAPI
+    restart: always
+    tty: true
+    working_dir: /app
+    volumes:
+      - ./gpt:/app
+    ports:
+      - ${GPT_PORT}:5000
+    networks:
+      - lan
+
+  #MONGODB
+  mongodb:
+    image: mongo
+    restart: always
+    container_name: mongodb
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=pass12345
+    volumes:
+      - ./mongodb-data:/data/db
+    networks:
+      - lan
+      
+  mongo-express:
+    image: mongo-express
+    restart: always
+    container_name: mongo-express
+    environment:
+      ##Password to use the aplicaction
+      - ME_CONFIG_BASICAUTH_USERNAME=admin
+      - ME_CONFIG_BASICAUTH_PASSWORD=admin123
+      ##Connection DATA (user,pas,etc) to the DB
+      - ME_CONFIG_MONGODB_SERVER=mongodb
+      - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=root
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=pass12345
+    depends_on:
+      - mongodb
+    networks:
+      - lan
+    ports:
+      - 8081:8081
+
+#Docker Networks
+networks:
+  lan:
+    driver: bridge

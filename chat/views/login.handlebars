@@ -1,0 +1,74 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous"><link rel="stylesheet" href="/css/style.css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="/css/style.css">
+  </head>
+  <body>
+    <center>
+    <div class="container" id="formulario-login">
+      <div class="wrapper fadeInDown">
+        <div id="formContent">
+          <div class="fadeIn first">
+            <img width="150" height="150" src="/images/logo.png" id="icon-login" alt="logo">
+          </div>
+          <div id="login-form">
+            <div class="fadeIn second">
+              <form method="POST" action="/chat">
+                <label for="formUser" class="form_msg">Bienvenido,<br/>Elige un <b>nick</b></label>
+                <input id="formUser" type="text" name="user" placeholder="Nickname" required>
+                <select id="selectSala" class="form-select form_msg" name="sala" required>
+                  <option value="sala1">Sala 1</option>
+                  <option value="sala2">Sala 2</option>
+                  <option value="sala3">Sala 3</option>
+                  <option value="sala4">Sala 4</option>
+                  <option value="sala5">Sala 5</option>
+                </select>
+                <input type="text" name="avatar" id="selectAvatar" hidden required>
+                <div id="listaAvatares" class="row form-group">
+                  <div class="col-md-3">
+                    <a onclick="elegirAvatar('avatar1');"><img id="avatar1" src="https://bootdey.com/img/Content/avatar/avatar1.png" class="avatar" alt="Avatar 1"></a>
+                    <a onclick="elegirAvatar('avatar2');"><img id="avatar2" src="https://bootdey.com/img/Content/avatar/avatar2.png" class="avatar" alt="Avatar 2"></a>
+                  </div>
+                  <div class="col-md-3">
+                    <a onclick="elegirAvatar('avatar3');"><img id="avatar3" src="https://bootdey.com/img/Content/avatar/avatar3.png" class="avatar" alt="Avatar 3"></a>
+                    <a onclick="elegirAvatar('avatar4');"><img id="avatar4" src="https://bootdey.com/img/Content/avatar/avatar4.png" class="avatar" alt="Avatar 4"></a>
+                  </div>
+                  <div class="col-md-3">
+                    <a onclick="elegirAvatar('avatar5');"><img id="avatar5" src="https://bootdey.com/img/Content/avatar/avatar5.png" class="avatar" alt="Avatar 5"></a>
+                    <a onclick="elegirAvatar('avatar6');"><img id="avatar6" src="https://bootdey.com/img/Content/avatar/avatar6.png" class="avatar" alt="Avatar 6"></a>
+                  </div>
+                  <div class="col-md-3">
+                    <a onclick="elegirAvatar('avatar7');"><img id="avatar7" src="https://bootdey.com/img/Content/avatar/avatar7.png" class="avatar" alt="Avatar 7"></a>
+                    <a onclick="elegirAvatar('avatar8');"><img id="avatar8" src="https://bootdey.com/img/Content/avatar/avatar8.png" class="avatar" alt="Avatar 8"></a>
+                  </div>
+                </div>
+
+              
+            </div>
+            <div class="fadeIn"><button type="submit" id="boton-login">Entrar</button></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </center>
+ <script type="text/javascript">
+    function elegirAvatar(avatar) {
+      let selectAvatar = document.getElementById("selectAvatar");
+      let selected = document.getElementById(avatar).classList.toggle("seleccionado");
+      let avatares = document.getElementById("listaAvatares").getElementsByTagName("img");
+      Array.from(avatares).forEach((imagen) => {
+        if(imagen.classList.contains('seleccionado') && imagen.id != avatar){
+          imagen.classList.toggle("seleccionado");
+        }
+      });
+      selectAvatar.value = avatar;
+
+    }
+  </script>
+  </body>
+</html>
